@@ -311,6 +311,51 @@ module useingClassAsAnInterface {
     var point3d: Point3d = { x: 1, y:2, z: 3};
 }
 
+module moduels {
+
+}
+
+
+module functions {
+    function add(x,y) {
+        return x + y;
+    }
+
+    var myAdd = function(x,y) { return x + y};
+}
+
+module functionTypes {
+    function add(x: number ,y: number): number {
+        return x + y;
+    }
+
+    var myAdd = function(x: number, y: number): number { return x + y;}
+
+
+    var myAdd: (x: number, y: number) => number;
+    myAdd = (x,y) => x + y;
+}
+
+module optionalAndDefaultParameters {
+    function buildName(firstName: string, lastName?: string) {
+        return firstName + " " + lastName;
+    }
+
+
+    var result1 = buildName("Bob");
+    //var result2 = buildName("Bob", "Adams", "Sr.");
+    var result3 = buildName("Bob","Adams");
+}
+
+
+module restParameters {
+    function buildName(firstName: string, ...restOfName: string[]) {
+        return firstName + " " + restOfName.join(" ");
+    }
+
+    var employeeName = buildName("Joseph", "Samuel", "Lucas", "MacKinzie");
+}
+
 
 
 

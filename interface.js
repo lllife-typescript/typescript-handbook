@@ -247,4 +247,39 @@ var useingClassAsAnInterface;
     })();
     var point3d = { x: 1, y: 2, z: 3 };
 })(useingClassAsAnInterface || (useingClassAsAnInterface = {}));
+var functions;
+(function (functions) {
+    function add(x, y) {
+        return x + y;
+    }
+    var myAdd = function (x, y) { return x + y; };
+})(functions || (functions = {}));
+var functionTypes;
+(function (functionTypes) {
+    function add(x, y) {
+        return x + y;
+    }
+    var myAdd = function (x, y) { return x + y; };
+    var myAdd;
+    myAdd = function (x, y) { return x + y; };
+})(functionTypes || (functionTypes = {}));
+var optionalAndDefaultParameters;
+(function (optionalAndDefaultParameters) {
+    function buildName(firstName, lastName) {
+        return firstName + " " + lastName;
+    }
+    var result1 = buildName("Bob");
+    var result3 = buildName("Bob", "Adams");
+})(optionalAndDefaultParameters || (optionalAndDefaultParameters = {}));
+var restParameters;
+(function (restParameters) {
+    function buildName(firstName) {
+        var restOfName = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            restOfName[_i - 1] = arguments[_i];
+        }
+        return firstName + " " + restOfName.join(" ");
+    }
+    var employeeName = buildName("Joseph", "Samuel", "Lucas", "MacKinzie");
+})(restParameters || (restParameters = {}));
 var end = "end";
