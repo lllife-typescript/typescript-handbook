@@ -304,13 +304,67 @@ var lambdasAndUsingThis;
         }
     };
 })(lambdasAndUsingThis || (lambdasAndUsingThis = {}));
-var overload;
-(function (overload) {
-    function pickCard(x, y) {
-        return x;
+var generic;
+(function (generic) {
+    function identity(arg) {
+        return arg;
     }
-    function pickCard(x) {
-        return x;
+})(generic || (generic = {}));
+var genericClass;
+(function (genericClass) {
+    var GenericNumber = (function () {
+        function GenericNumber() {
+        }
+        return GenericNumber;
+    })();
+    var myGenericNumber = new GenericNumber();
+    myGenericNumber.zeroValue = 0;
+    myGenericNumber.add = function (x, y) { return x + y; };
+})(genericClass || (genericClass = {}));
+var mixins;
+(function (mixins) {
+    var Disposable = (function () {
+        function Disposable() {
+        }
+        Disposable.prototype.dispose = function () {
+            this.isDisposed = true;
+        };
+        return Disposable;
+    })();
+    var Activatable = (function () {
+        function Activatable() {
+        }
+        Activatable.prototype.activate = function () {
+            this.isActive = true;
+        };
+        Activatable.prototype.deactivate = function () {
+            this.isActive = false;
+        };
+        return Activatable;
+    })();
+    var SmartObject = (function () {
+        function SmartObject() {
+            var _this = this;
+            this.isDisposed = false;
+            this.isActive = false;
+            setInterval(function () {
+                return console.log(_this.isActive + ":" + _this.isDisposed);
+            }, 500);
+        }
+        SmartObject.prototype.interact = function () {
+            this.activate();
+        };
+        return SmartObject;
+    })();
+    applyMixins(SmartObject, [Disposable, Activatable]);
+    var smartObj = new SmartObject();
+    setTimeout(function () { return smartObj.interact(); }, 1000);
+    function applyMixins(derivedCtor, baseCtors) {
+        baseCtors.forEach(function (baseCtors) {
+            Object.getOwnPropertyNames(baseCtors.prototype).forEach(function (name) {
+                derivedCtor.prototype[name] = baseCtors.prototype[name];
+            });
+        });
     }
-})(overload || (overload = {}));
+})(mixins || (mixins = {}));
 var end = "end";

@@ -383,12 +383,83 @@ module lambdasAndUsingThis {
 }
 
 module overload {
-    function pickCard(x: number, y: number;) {
+    /*
+    function pickCard(x: number) {
         return x;
     }
-
     function pickCard(x: string) {
         return x;
+    }
+    */
+}
+
+module generic {
+    function identity<T>(arg: T): T {
+        return arg;
+    }
+}
+
+module genericClass {
+    class GenericNumber<T> {
+        zeroValue: T;
+        add: (x: T, y: T) => T;
+    }
+
+    var myGenericNumber = new GenericNumber<number>();
+    myGenericNumber.zeroValue = 0;
+    myGenericNumber.add = (x,y) => x + y;
+}
+
+
+module mixins {
+    class Disposable {
+        isDisposed: boolean;
+        dispose() {
+            this.isDisposed = true;
+        }
+    }
+
+    class Activatable {
+        isActive: boolean;
+        activate() {
+            this.isActive = true;
+        }
+        deactivate() {
+            this.isActive = false;
+        }
+    }
+
+    class SmartObject implements Disposable, Activatable {
+        constructor() {
+            setInterval( () =>
+                console.log(this.isActive + ":" +  this.isDisposed),
+            500);
+        }
+
+        interact() {
+            this.activate();
+        }
+
+        isDisposed: boolean = false;
+        isActive: boolean = false;
+
+        dispose: () => void;
+        activate:  ()=> void;
+        deactivate: () => void
+    }
+
+    applyMixins(SmartObject, [Disposable, Activatable]);
+
+    var smartObj = new SmartObject();
+    setTimeout( () => smartObj.interact(), 1000);
+
+    // in your runtime library somewhrere
+    function applyMixins(derivedCtor: any, baseCtors: any[]) {
+        baseCtors.forEach(baseCtors => {
+            Object.getOwnPropertyNames(baseCtors.prototype).forEach(name => {
+                derivedCtor.prototype[name] = baseCtors.prototype[name];
+            });
+        });
     }
 }
 
