@@ -282,4 +282,35 @@ var restParameters;
     }
     var employeeName = buildName("Joseph", "Samuel", "Lucas", "MacKinzie");
 })(restParameters || (restParameters = {}));
+var lambdasAndUsingThis;
+(function (lambdasAndUsingThis) {
+    var dect = {
+        suits: ["hearts", "spades", "clubs", "diamons"],
+        cards: Array(52),
+        createCardPicker: function () {
+            return function () {
+                var pickedCard = Math.floor(Math.random() * 52);
+                var pickedSuit = Math.floor(pickedCard / 13);
+                return {
+                    suit: this.suits[pickedSuit]
+                };
+            };
+        },
+        createCardPicker2: function () {
+            var _this = this;
+            return function () {
+                return _this.suits[100];
+            };
+        }
+    };
+})(lambdasAndUsingThis || (lambdasAndUsingThis = {}));
+var overload;
+(function (overload) {
+    function pickCard(x, y) {
+        return x;
+    }
+    function pickCard(x) {
+        return x;
+    }
+})(overload || (overload = {}));
 var end = "end";
